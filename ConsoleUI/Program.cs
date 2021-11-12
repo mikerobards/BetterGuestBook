@@ -11,43 +11,58 @@ namespace ConsoleUI
 {
     class Program
     {
+        private static List<GuestModel> guests = new List<GuestModel>();
+        // using a List because you can keep adding to it
+        // moved variable outside of methods for scope
+
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the Better Guest Book!");
 
-            List<GuestModel> guests = new List<GuestModel>();
-            // using a List because you can keep adding to it
-
             // loop through each guest
 
+            GetGuestInfomation();
+
+            PrintGuestInformation();
+
+        }
+
+        private static void PrintGuestInformation()
+        {
+            foreach (GuestModel guest in guests)
+            {
+                Console.WriteLine(guest.GuestInfo);
+            }
+        }
+
+        private static void GetGuestInfomation()
+        {
             string moreGuestsComing = "";
 
             do // run the code at least once
             {
                 GuestModel guest = new();
 
-                Console.Write("What is your first name: ");
-                guest.FirstName = Console.ReadLine();
-
-                Console.Write("What is your last name: ");
-                guest.LastName = Console.ReadLine();
-
-                Console.Write("What is your message to the host: ");
-                guest.MessageToHost = Console.ReadLine();
-
-                Console.Write("Are more guests coming? (y/n) ");
-                moreGuestsComing = Console.ReadLine();
+                guest.FirstName = GetInfoFromConsole("What is your first name: ");
+                guest.LastName = GetInfoFromConsole("What is your last name: ");
+                guest.MessageToHost = GetInfoFromConsole("What is your message to the host: ");
+                moreGuestsComing = GetInfoFromConsole("Are more guests coming? (y/n) ");
 
                 guests.Add(guest);
 
                 Console.Clear();
             } while (moreGuestsComing.ToLower() == "y");
 
-            foreach (GuestModel guest in guests)
-            {
-                Console.WriteLine(guest.GuestInfo);
-            }
+        }
 
+        private static string GetInfoFromConsole(string message)
+        {
+            string output = "";
+
+            Console.Write(message);
+            output = Console.ReadLine();
+
+            return output;
         }
     }
 }
