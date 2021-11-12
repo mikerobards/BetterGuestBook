@@ -19,8 +19,6 @@ namespace ConsoleUI
         {
             Console.WriteLine("Welcome to the Better Guest Book!");
 
-            // loop through each guest
-
             GetGuestInfomation();
 
             PrintGuestInformation();
